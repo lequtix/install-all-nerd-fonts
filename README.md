@@ -247,8 +247,9 @@ is external:
 sed -i 's/\r$//' install-all-nerd-fonts.sh
 ```
 
-The included `.editorconfig` keeps it LF-only in editors that respect it. If you cloned on Linux
-this should never happen — it only bites when the file is copied from Windows.
+The included `.editorconfig` keeps it LF-only in editors that respect it, and `.gitattributes`
+(`*.sh text eol=lf`) makes git check it out with LF even when `core.autocrlf=true`. If you cloned on
+Linux this should never happen — it only bites when the file is copied from Windows.
 
 **`no font archives found at https://www.nerdfonts.com/font-downloads - is it reachable?`** — the
 download of the family list failed, or the page markup no longer matches. Both scripts print this

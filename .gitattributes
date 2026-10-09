@@ -1,0 +1,6 @@
+# Shell scripts must be checked out with LF endings: they are edited on Windows
+# but run on Linux, and a CRLF copy dies at the shebang with
+# "env: 'bash\r': No such file or directory".
+#
+# This overrides core.autocrlf=true, so a fresh clone on Windows is still safe.
+*.sh text eol=lf
