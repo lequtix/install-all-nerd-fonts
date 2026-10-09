@@ -25,6 +25,8 @@ root=${1:-${XDG_DATA_HOME:-$HOME/.local/share}/fonts}
 dest="$root/NerdFonts"
 
 # "|| true" so an empty grep match cannot trip pipefail before the check below.
+# 14 of the 72 families (CodeNewRoman, Monaspace, GeistMono, ...) publish CFF
+# outlines, so they ship *.otf rather than *.ttf - hence the '*.[to]tf' below.
 urls=$(curl -fsSL "$site" \
 	| grep -o 'https://github\.com/ryanoasis/nerd-fonts/releases/download/[^"]*\.zip' \
 	| sort -u || true)
@@ -41,7 +43,8 @@ mkdir -p "$dest"
 printf '%s\n' "$urls" | while read -r url; do
 	echo "  ${url##*/}"
 	curl -fsSL "$url" -o "$tmp"
-	unzip -qo "$tmp" '*.ttf' -d "$dest" || [ "$?" -eq 11 ]   # 11 = nothing matched the pattern
+	# one pattern, so each archive matches something and unzip stays quiet
+	unzip -qo "$tmp" '*.[to]tf' -d "$dest" || [ "$?" -eq 11 ]   # 11 = nothing matched
 done
 
 if command -v fc-cache >/dev/null 2>&1; then
@@ -50,5 +53,5 @@ else
 	echo "fc-cache not found - install fontconfig, then run 'fc-cache -f'" >&2
 fi
 
-echo "Installed $(find "$dest" -name '*.ttf' | wc -l) font files into $dest"
+echo "Installed $(find "$dest" \( -name '*.ttf' -o -name '*.otf' \) | wc -l) font files into $dest"
 echo "Restart your terminal/editor, then pick a family such as 'JetBrainsMono Nerd Font'."
