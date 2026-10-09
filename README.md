@@ -1,4 +1,4 @@
-# nerd-fonts
+# install-all-nerd-fonts
 
 Scripts that install **every Nerd Font family** on Fedora and on Windows.
 
@@ -8,8 +8,8 @@ bundle — so there is no `dnf install` shortcut. Both scripts read the official
 
 | Script | Platform | Fonts go to |
 |---|---|---|
-| `install-nerd-fonts.sh` | Fedora/RHEL, native Linux (no WSL) | `${XDG_DATA_HOME:-$HOME/.local/share}/fonts/NerdFonts` |
-| `install-nerd-fonts.ps1` | Windows 10 1809 or later | `%LOCALAPPDATA%\Microsoft\Windows\Fonts`, or `C:\Windows\Fonts` with `-SystemWide` |
+| `install-all-nerd-fonts.sh` | Fedora/RHEL, native Linux (no WSL) | `${XDG_DATA_HOME:-$HOME/.local/share}/fonts/NerdFonts` |
+| `install-all-nerd-fonts.ps1` | Windows 10 1809 or later | `%LOCALAPPDATA%\Microsoft\Windows\Fonts`, or `C:\Windows\Fonts` with `-SystemWide` |
 
 ## Requirements
 
@@ -51,36 +51,36 @@ powershell -NoProfile -Command '$PSVersionTable.PSVersion'
 ### Fedora
 
 ```bash
-git clone https://github.com/lequtix/nerd-fonts.git
-cd nerd-fonts
-chmod +x install-nerd-fonts.sh
-./install-nerd-fonts.sh
+git clone https://github.com/lequtix/install-all-nerd-fonts.git
+cd install-all-nerd-fonts
+chmod +x install-all-nerd-fonts.sh
+./install-all-nerd-fonts.sh
 ```
 
 For all users instead of just you:
 
 ```bash
-sudo ./install-nerd-fonts.sh /usr/share/fonts
+sudo ./install-all-nerd-fonts.sh /usr/share/fonts
 ```
 
 ### Windows
 
 ```powershell
-git clone https://github.com/lequtix/nerd-fonts.git
-cd nerd-fonts
-.\install-nerd-fonts.ps1
+git clone https://github.com/lequtix/install-all-nerd-fonts.git
+cd install-all-nerd-fonts
+.\install-all-nerd-fonts.ps1
 ```
 
 If your execution policy blocks the script, run it in a process that bypasses it:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install-nerd-fonts.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install-all-nerd-fonts.ps1
 ```
 
 For all users instead of just you, from an elevated prompt:
 
 ```powershell
-.\install-nerd-fonts.ps1 -SystemWide
+.\install-all-nerd-fonts.ps1 -SystemWide
 ```
 
 ## Usage
@@ -88,7 +88,7 @@ For all users instead of just you, from an elevated prompt:
 ### Fedora
 
 ```
-./install-nerd-fonts.sh [font-directory]
+./install-all-nerd-fonts.sh [font-directory]
 ```
 
 With no argument, fonts go to `${XDG_DATA_HOME:-$HOME/.local/share}/fonts/NerdFonts`, which honours
@@ -101,7 +101,7 @@ rather than silently installing to a directory named `--dry-run`.
 ### Windows
 
 ```
-.\install-nerd-fonts.ps1 [-SystemWide] [-FontFamily <pattern>[,<pattern>...]] [-WhatIf]
+.\install-all-nerd-fonts.ps1 [-SystemWide] [-FontFamily <pattern>[,<pattern>...]] [-WhatIf]
 ```
 
 With no argument, fonts go to `%LOCALAPPDATA%\Microsoft\Windows\Fonts` and are registered for the
@@ -115,15 +115,15 @@ of files no application could see.
 `-FontFamily` installs a subset — handy given the full set is 4 GiB:
 
 ```powershell
-.\install-nerd-fonts.ps1 -FontFamily JetBrainsMono, FiraCode
-.\install-nerd-fonts.ps1 -FontFamily 'Caskaydia*', 'Iosevka*'
+.\install-all-nerd-fonts.ps1 -FontFamily JetBrainsMono, FiraCode
+.\install-all-nerd-fonts.ps1 -FontFamily 'Caskaydia*', 'Iosevka*'
 ```
 
 `-WhatIf` prints what would be installed and downloads nothing — no file, registry value or loaded
 font is touched:
 
 ```powershell
-.\install-nerd-fonts.ps1 -FontFamily HeavyData -WhatIf
+.\install-all-nerd-fonts.ps1 -FontFamily HeavyData -WhatIf
 ```
 
 Re-running is safe and cheap: a font file that is already present with the same size is left alone
@@ -244,7 +244,7 @@ shebang is read by `env` *before* any script code runs, so the script cannot rep
 is external:
 
 ```bash
-sed -i 's/\r$//' install-nerd-fonts.sh
+sed -i 's/\r$//' install-all-nerd-fonts.sh
 ```
 
 The included `.editorconfig` keeps it LF-only in editors that respect it. If you cloned on Linux
@@ -263,9 +263,9 @@ restart the terminal.
 skip every remaining family. In practice nothing hits it: `'*.[to]tf'` matches at least one file in
 every family.
 
-**`install-nerd-fonts.ps1 cannot be loaded because running scripts is disabled on this system`** —
+**`install-all-nerd-fonts.ps1 cannot be loaded because running scripts is disabled on this system`** —
 the default execution policy blocks unsigned scripts. Either run it with a per-process bypass
-(`powershell -NoProfile -ExecutionPolicy Bypass -File .\install-nerd-fonts.ps1`) or allow local
+(`powershell -NoProfile -ExecutionPolicy Bypass -File .\install-all-nerd-fonts.ps1`) or allow local
 scripts for your user once with `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
 **`could not replace <font>.ttf: The process cannot access the file because it is being used by

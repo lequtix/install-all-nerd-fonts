@@ -30,17 +30,17 @@
     or without the .zip extension - for example JetBrainsMono or 'Caskaydia*'.
 
 .EXAMPLE
-    .\install-nerd-fonts.ps1
+    .\install-all-nerd-fonts.ps1
 
     Installs all 72 families for the current user.
 
 .EXAMPLE
-    .\install-nerd-fonts.ps1 -SystemWide
+    .\install-all-nerd-fonts.ps1 -SystemWide
 
     Installs all families for every user. Run from an elevated session.
 
 .EXAMPLE
-    .\install-nerd-fonts.ps1 -FontFamily JetBrainsMono, FiraCode -WhatIf
+    .\install-all-nerd-fonts.ps1 -FontFamily JetBrainsMono, FiraCode -WhatIf
 
     Shows what would be installed and downloads nothing.
 
@@ -170,7 +170,7 @@ if ($urls.Count -eq 0) {
 
 if ($FontFamily) {
     # Accept both -FontFamily A,B and -FontFamily A B; a native command line such as
-    # `pwsh -File install-nerd-fonts.ps1 -FontFamily A,B` arrives as one comma-joined string.
+    # `pwsh -File install-all-nerd-fonts.ps1 -FontFamily A,B` arrives as one comma-joined string.
     $patterns = @($FontFamily | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
     $urls = @($urls | Where-Object {
             $name = [IO.Path]::GetFileNameWithoutExtension($_)

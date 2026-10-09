@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Install every Nerd Font family, using the official list at nerdfonts.com.
 #
-#   ./install-nerd-fonts.sh                        -> ~/.local/share/fonts
-#   sudo ./install-nerd-fonts.sh /usr/share/fonts  -> system-wide
+#   ./install-all-nerd-fonts.sh                        -> ~/.local/share/fonts
+#   sudo ./install-all-nerd-fonts.sh /usr/share/fonts  -> system-wide
 #
 # Needs curl, unzip and coreutils; fontconfig (fc-cache) is optional.
 # The catalogue comes from the official download page, which pins a known-good
