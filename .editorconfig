@@ -1,0 +1,11 @@
+# Keep shell scripts LF-only: they are edited on Windows but run on Linux,
+# and a CRLF copy fails with "env: 'bash\r': No such file or directory".
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+[*.sh]
+indent_style = tab
